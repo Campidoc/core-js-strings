@@ -181,6 +181,7 @@ function removeLastOccurrences(str, value) {
  *   sumOfCodes() => 0
  */
 function sumOfCodes(str) {
+  if (!str) return 0;
   return str.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
 }
 
@@ -294,7 +295,9 @@ function containsSubstring(str, substring) {
  *   countVowels('XYZ') => 1
  */
 function countVowels(str) {
-  return str.match(/[aeiouyAEIOUY]/g).length;
+  if (typeof str !== 'string') return 0;
+  const matches = str.match(/[aeiouyAEIOUY]/g);
+  return matches ? matches.length : 0;
 }
 
 /**
