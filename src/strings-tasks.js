@@ -314,7 +314,8 @@ function countVowels(str) {
  *   isPalindrome('No lemon, no melon') => true
  */
 function isPalindrome(str) {
-  return str === reverseString(str);
+  const cleaned = str.replace(/[^a-zA-Z]/g, '').toLowerCase();
+  return cleaned === cleaned.split('').reverse().join('');
 }
 
 /**
@@ -344,7 +345,10 @@ function findLongestWord(sentence) {
  *   reverseWords('The Quick Brown Fox') => 'ehT kciuQ nworB xoF'
  */
 function reverseWords(str) {
-  return str.split(' ').reverse().join(' ');
+  return str
+    .split(' ')
+    .map((word) => word.split('').reverse().join(''))
+    .join(' ');
 }
 
 /**
@@ -381,7 +385,7 @@ function invertCase(str) {
  *   getStringFromTemplate('Chuck','Norris') => 'Hello, Chuck Norris!'
  */
 function getStringFromTemplate(firstName, lastName) {
-  return `Hello, ${firstName} ${lastName}`;
+  return `Hello, ${firstName} ${lastName}!`;
 }
 
 /**
@@ -395,7 +399,7 @@ function getStringFromTemplate(firstName, lastName) {
  *   extractNameFromTemplate('Hello, Chuck Norris!') => 'Chuck Norris'
  */
 function extractNameFromTemplate(value) {
-  return value.replace('Hello, ', '');
+  return value.replace('Hello, ', '').replace('!', '');
 }
 
 /**
@@ -449,7 +453,18 @@ function extractEmails(str) {
  *
  */
 function encodeToRot13(str) {
-  return str;
+  return str
+    .split('')
+    .map((char) => {
+      const code = char.charCodeAt(0);
+      if ((code >= 65 && code <= 90) || (code >= 97 && code <= 122)) {
+        return String.fromCodePoint(
+          code + (char.toLowerCase() < 'n' ? 13 : -13)
+        );
+      }
+      return char;
+    })
+    .join('');
 }
 
 /**
